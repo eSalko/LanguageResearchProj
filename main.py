@@ -1,18 +1,29 @@
-import csv
-from Potatoes import Potatoes
-from pprint import pprint
+from MenuFunctions import MenuFunctions
 
-try:
-    with open("32100358.csv", "r") as file:
-        csvreader = csv.reader(file)
-        header = [next(csvreader)]
-        for row in csvreader:
-            print(row)
-    potato1 = Potatoes(row[0], row[1], row[2], row[3], row[4], row[5], row[6],
-                       row[7], row[8], row[9], row[10], row[11], row[12], row[13])
-except FileNotFoundError:
-    print("invalid file name")
-except:
-    print("something went wrong...")
+# creating MenuFunctions object to access available functions
+new_menu = MenuFunctions()
 
-print(str(potato1))
+# calling menu function to show the user a menu
+new_menu.make_menu()
+
+# getting input from user to select a menu option
+option = input("What would you like to do? ")
+
+# instantiating name and student nubmer to print out later in program
+name = "Eric Salkovic"
+studentnum = "040861953"
+
+# match/case decision structure to execute selected menu option
+match option:
+    case "1":
+        new_menu.print_data()
+    case "2":
+        new_menu.print_metadata()
+    case "3":
+        new_menu.print_20()
+    case "4":
+        print("Program by: " + name + " | " + studentnum)
+        exit()
+
+# printing my name to prove it's my original work
+print("Program by: " + name + " | " + studentnum)
