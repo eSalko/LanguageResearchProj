@@ -1,10 +1,11 @@
 class Potatoes:
     # initializing potato attributes for potato objects
-    def __init__(self, ref_date, dguid, area_production_value, uom, uom_id,
+    def __init__(self, ref_date, geo, dguid, area_production_value, uom, uom_id,
                  scalar_factor, scalar_id, vector, coordinate, value, status,
                  symbol, terminated, decimals):
         """initializing function for potatoes object, using the column names as attributes"""
         self.ref_date = ref_date
+        self.geo = geo
         self.dguid = dguid
         self.apv = area_production_value
         self.uom = uom
