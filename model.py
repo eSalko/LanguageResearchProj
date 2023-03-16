@@ -1,9 +1,11 @@
-import csv # Eric Salkovic
+import csv  # Eric Salkovic
 import pandas as pd
+from csv import DictReader
 
 
 class MenuFunctions:
     """MenuFunctions class containing functions to print and execute commands in the menu"""
+
     def make_menu(self):
         """function to create and display menu to the user"""
         print("Menu Options:")
@@ -17,6 +19,7 @@ class MenuFunctions:
         print("8. Create new record in .csv file")
         print("9. Edit record in .csv file")
         print("10. Delete record in .csv file")
+        print("11. Sort .csv data in a data structure")
         print("Program by Eric Salkovic | 040861953")
         # menu options for the user to choose from and execute
 
@@ -74,7 +77,7 @@ class MenuFunctions:
             print("something went wrong...")
             # outputting generic error message for other exceptions
 
-    def reload_dataset(self): # Eric Salkovic
+    def reload_dataset(self):  # Eric Salkovic
         """function to reload and print the data in .csv file"""
         data = pd.read_csv("32100358.csv")
         # reading data in .csv file
@@ -83,6 +86,7 @@ class MenuFunctions:
                   row['UOM'], row['UOM_ID'], row['SCALAR_FACTOR'], row['SCALAR_ID'], row['VECTOR'], row['COORDINATE'],
                   row['VALUE'], row['STATUS'], row['SYMBOL'], row['TERMINATED'], row['DECIMALS'], )
         # looping through each row and printing data in .csv file by column
+
     def persist_new(self):
         """function to persist data to a new .csv file"""
         data = pd.read_csv("32100358.csv")
@@ -94,7 +98,7 @@ class MenuFunctions:
         print("data successfully saved to new file")
         # printing success message
 
-    def print_single_multiple(self): # Eric Salkovic
+    def print_single_multiple(self):  # Eric Salkovic
         """function to print a single or multiple lines"""
         data = pd.read_csv("32100358.csv")
         # reading data in .csv file
@@ -168,7 +172,7 @@ class MenuFunctions:
         print("Data successfully appended")
         # printing success message
 
-    def edit_entry(self): # Eric Salkovic
+    def edit_entry(self):  # Eric Salkovic
         """function to edit a row in .csv file"""
         try:
             # try/except in case of failure
@@ -195,7 +199,7 @@ class MenuFunctions:
             print("something went wrong...")
             # printing out error message in case of exception
 
-    def delete_entry(self): # Eric Salkovic
+    def delete_entry(self):  # Eric Salkovic
         """funtion to delete a single row in .csv file"""
         try:
             data = pd.read_csv("32100358.csv")
@@ -228,3 +232,15 @@ class MenuFunctions:
         # variable holding my student number
         print("Program by " + name + " | " + studentnum)
         # printing my name and student number
+
+    def sort_dict(self):
+        with open("32100358.csv", 'r') as data:
+            dict_reader = DictReader(data)
+            dict_list = list(dict_reader)
+
+            for row in dict_list:
+                print(f"REF_DATE: {row['REF_DATE']}, GEO: {row['GEO']}, DGUID: {row['DGUID']}, Area & Production &"
+                      f" farm value of potatoes: {row['Area_production_and_farm_value_of_potatoes']}, UOM: {row['UOM']},"
+                      f" UOMID: {row['UOM_ID']}, SCALAR FACTOR: {row['SCALAR_FACTOR']}, SCALAR ID: {row['SCALAR_ID']},"
+                      f" VECTOR: {row['VECTOR']}, COORDINATE: {row['COORDINATE']}, VALUE {row['VALUE']}, STATUS: "
+                      f"{row['STATUS']}, SYMBOL: {row['SYMBOL']}, TERMINATED: {row['TERMINATED']}, DECIMALS: {row['DECIMALS']}")

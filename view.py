@@ -45,6 +45,9 @@ class MakeMenu:
             case "10":
                 # case 10 to delete existing entry
                 menuFunction.delete_entry()
+            case "11":
+                # case 11 to sort csv data
+                menuFunction.sort_dict()
 
         print()
         # printing empty line to look cleaner
