@@ -19,10 +19,10 @@ class MenuFunctions:
         print("8. Create new record in .csv file")
         print("9. Edit record in .csv file")
         print("10. Delete record in .csv file")
-        print("11. Sort .csv data in a data dictionary")
+        print("11. Read/Print .csv data to a data dictionary")
         print("12. Add new record to data dictionary")
-        print("13. Display and edit existing record in data dictionary")
-        print("14. Delete existing record frome data dictionary")
+        print("13. Edit existing record in data dictionary")
+        print("14. Delete existing record in data dictionary")
         print("Program by Eric Salkovic | 040861953")
         # menu options for the user to choose from and execute
 
@@ -237,23 +237,38 @@ class MenuFunctions:
         # printing my name and student number
 
     def sort_dict(self):
+        """function to sort csv file into a data dictionary and print out all records"""
+        # opening dataset to convert into data dictionary
         with open("dataset.csv", 'r') as data:
+            # dictionary reader
             dict_reader = DictReader(data)
+            # converting data into a dictionary
             dict_list = list(dict_reader)
+            # printing .csv headers as keys for the dictionary
             print(dict_list[0].keys())
-
+            # row counter
+            count = 1
+            # printing each row from the dictionary
             for row in dict_list:
-                print(f" REF_DATE: {row['ï»¿REF_DATE']}, GEO: {row['GEO']}, DGUID: {row['DGUID']}, Area & Production &"
+                print(count, f" REF_DATE: {row['ï»¿REF_DATE']}, GEO: {row['GEO']}, DGUID: {row['DGUID']}, Area & Production &"
                       f" farm value of potatoes: {row['Area_production_and_farm_value_of_potatoes']}, UOM: {row['UOM']},"
                       f" UOM_ID: {row['UOM_ID']}, SCALAR FACTOR: {row['SCALAR_FACTOR']}, SCALAR ID: {row['SCALAR_ID']},"
                       f" VECTOR: {row['VECTOR']}, COORDINATE: {row['COORDINATE']}, VALUE {row['VALUE']}, STATUS: "
                       f"{row['STATUS']}, SYMBOL: {row['SYMBOL']}, TERMINATED: {row['TERMINATED']}, DECIMALS: {row['DECIMALS']}")
+                # incrementing the count by 1
+                count += 1
+            # printing nubmer of rows
+            print(count - 1, " rows")
 
     def new_dict_record(self):
+        """function to add a new record to the data dictionary and re-write it to the csv file"""
+        # opening dataset to convert into data dictionary
         with open("dataset.csv", 'r') as data:
+            # dictionary reader
             dict_reader = DictReader(data)
+            # converting data into a dictionary
             dict_list = list(dict_reader)
-
+        # prompting user to enter the values for a new record in the data dictionary
         print("Inserting new row in .csv data dictionary")
         new_ref_date = input("What is the new REF_DATE value? ")
         new_dguid = input("What is the new DGUID value? ")
@@ -270,7 +285,7 @@ class MenuFunctions:
         new_symbol = input("What is the new SYMBOL value? ")
         new_terminated = input("What is the new TERMINATED value? ")
         new_decimals = input("What is the new DECIMALS value? ")
-
+        # creating new dictionary with the given values to be entered as a record in original dictionary
         new_dict_record = {
             'ï»¿REF_DATE': new_ref_date,
             'DGUID': new_dguid,
@@ -288,9 +303,9 @@ class MenuFunctions:
             'TERMINATED': new_terminated,
             'DECIMALS': new_decimals
         }
-
+        # inserting the new record into the data dictionary
         dict_list.append(new_dict_record)
-
+        # printing each row from the dictionary
         for row in dict_list:
             print(f"REF_DATE: {row['ï»¿REF_DATE']}, GEO: {row['GEO']}, DGUID: {row['DGUID']}, Area & Production &"
                   f" farm value of potatoes: {row['Area_production_and_farm_value_of_potatoes']}, UOM: {row['UOM']},"
@@ -298,15 +313,22 @@ class MenuFunctions:
                   f" VECTOR: {row['VECTOR']}, COORDINATE: {row['COORDINATE']}, VALUE {row['VALUE']}, STATUS: "
                   f"{row['STATUS']}, SYMBOL: {row['SYMBOL']}, TERMINATED: {row['TERMINATED']}, DECIMALS: {row['DECIMALS']}")
 
-    def single_record_dict(self):
+    def edit_record_dict(self):
+        """function to edit an existing record in the data dictionary and re-write it all to the csv file"""
+        # opening dataset to convert into a dictionary
         with open("dataset.csv", 'r') as data:
+            # dictionary reader
             dict_reader = DictReader(data)
+            # converting data into a dictionary
             dict_list = list(dict_reader)
+            # prompting user to enter the row/record they want to edit
             single_dict = input("What record (row) would you like to edit?")
             try:
+                # checking if the row entered is in the dictionary
                 if int(single_dict) > len(dict_list):
                     pass
                 else:
+                    # if the row IS in the dictionary, prompt user to enter the new values to edit the record
                     new_ref_date = input("What is the new REF_DATE value? ")
                     new_dguid = input("What is the new DGUID value? ")
                     new_geo = input("What is the new GEO value? ")
@@ -322,55 +344,68 @@ class MenuFunctions:
                     new_symbol = input("What is the new SYMBOL value? ")
                     new_terminated = input("What is the new TERMINATED value? ")
                     new_decimals = input("What is the new DECIMALS value? ")
-
-                    if int(single_dict) <= len(dict_list):
-                        dict_list[int(single_dict)]['ï»¿REF_DATE'] = new_ref_date
-                        dict_list[int(single_dict)]['DGUID'] = new_dguid
-                        dict_list[int(single_dict)]['GEO'] = new_geo
-                        dict_list[int(single_dict)]['Area_production_and_farm_value_of_potatoes'] = new_area
-                        dict_list[int(single_dict)]['UOM'] = new_uom
-                        dict_list[int(single_dict)]['UOM_ID'] = new_uom_id
-                        dict_list[int(single_dict)]['SCALAR_FACTOR'] = new_scalar_factor
-                        dict_list[int(single_dict)]['SCALAR_ID'] = new_scalar_id
-                        dict_list[int(single_dict)]['VECTOR'] = new_vector
-                        dict_list[int(single_dict)]['COORDINATE'] = new_coordinate
-                        dict_list[int(single_dict)]['VALUE'] = new_value
-                        dict_list[int(single_dict)]['STATUS'] = new_status
-                        dict_list[int(single_dict)]['SYMBOL'] = new_symbol
-                        dict_list[int(single_dict)]['TERMINATED'] = new_terminated
-                        dict_list[int(single_dict)]['DECIMALS'] = new_decimals
-                        print("record successfully edited")
-                        with open("dataset.csv", 'w', newline='') as data:
-                            dict_writer = csv.DictWriter(data, fieldnames=dict_list[0].keys())
-                            dict_writer.writeheader()
-                            dict_writer.writerows(dict_list)
-
-                    else:
-                        print("record does not exist")
-                    data.close()
-
-                print(dict_list[int(single_dict)])
-
+                    # inserting new values into the chosen record
+                    dict_list[int(single_dict)-2]['ï»¿REF_DATE'] = new_ref_date
+                    dict_list[int(single_dict)-2]['DGUID'] = new_dguid
+                    dict_list[int(single_dict)-2]['GEO'] = new_geo
+                    dict_list[int(single_dict)-2]['Area_production_and_farm_value_of_potatoes'] = new_area
+                    dict_list[int(single_dict)-2]['UOM'] = new_uom
+                    dict_list[int(single_dict)-2]['UOM_ID'] = new_uom_id
+                    dict_list[int(single_dict)-2]['SCALAR_FACTOR'] = new_scalar_factor
+                    dict_list[int(single_dict)-2]['SCALAR_ID'] = new_scalar_id
+                    dict_list[int(single_dict)-2]['VECTOR'] = new_vector
+                    dict_list[int(single_dict)-2]['COORDINATE'] = new_coordinate
+                    dict_list[int(single_dict)-2]['VALUE'] = new_value
+                    dict_list[int(single_dict)-2]['STATUS'] = new_status
+                    dict_list[int(single_dict)-2]['SYMBOL'] = new_symbol
+                    dict_list[int(single_dict)-2]['TERMINATED'] = new_terminated
+                    dict_list[int(single_dict)-2]['DECIMALS'] = new_decimals
+                    print("Record Successfully Edited")
+                    # using open dataset to write the data back into the .csv file
+                    with open("dataset.csv", 'w', newline='') as data:
+                        # creating the dictionary writer
+                        dict_writer = csv.DictWriter(data, fieldnames=dict_list[0].keys())
+                        # writing the headers
+                        dict_writer.writeheader()
+                        # rewriting the dictionary back to .csv file
+                        dict_writer.writerows(dict_list)
+                # printing row that was edited
+                print(dict_list[int(single_dict)-2])
+                # closing dataset
+                data.close()
+            # exception handling if the user enters a row that does not exist in the dataset.
             except IndexError:
+                # printing error messsage
                 print("IndexError Exception: Index out of range")
 
-
     def delete_single_dict(self):
+        """function to delete an existing record in the data dictionary and re-write it all to the csv file"""
+        # prompting user to enter the record/row they want to delete
         del_single_rec = input("Which record (row) would you like to delete?")
+        # using open dataset
         with open("dataset.csv", 'r') as data:
+            # creating dictionary reader
             dict_reader = DictReader(data)
+            # converting data into a dictionary
             dict_list = list(dict_reader)
-
+            # checking if the record exists in the dictionary
             if int(del_single_rec) <= len(dict_list):
-                del_rec = dict_list.pop(int(del_single_rec)-1)
-                print("Record", del_rec, " successfully deleted")
+                # deletes chosen record
+                del_rec = dict_list.pop(int(del_single_rec) - 2)
+                # printing
+                print("Following record successfully deleted:")
+                # printing the record that was deleted
+                print(del_rec)
             else:
-                print("record does not exist")
-
+                # printing appropriate error message
+                print("Record does not exist")
+        # opening dataset to write into it
         with open("dataset.csv", 'w', newline='') as data:
+            # getting header values for the keys
             fieldnames = dict_list[0].keys()
+            # creating the dictionary writer
             dict_writer = csv.DictWriter(data, fieldnames=fieldnames)
+            # writing the header values
             dict_writer.writeheader()
+            # rewriting the dictionary back to .csv file
             dict_writer.writerows(dict_list)
-
-

@@ -53,7 +53,7 @@ class MakeMenu:
                 menuFunction.new_dict_record()
             case "13":
                 # case 13 to select display and edit record in dictionary
-                menuFunction.single_record_dict()
+                menuFunction.edit_record_dict()
             case "14":
                 # case 14 to delete a record from dictionary
                 menuFunction.delete_single_dict()
