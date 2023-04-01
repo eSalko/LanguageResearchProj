@@ -57,6 +57,9 @@ class MakeMenu:
             case "14":
                 # case 14 to delete a record from dictionary
                 menuFunction.delete_single_dict()
+            case "15":
+                # case 15 to sort print multiple columns from the dataframe
+                menuFunction.sort_multiple()
 
         print()
         # printing empty line to look cleaner

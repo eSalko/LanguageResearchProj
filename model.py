@@ -23,6 +23,7 @@ class MenuFunctions:
         print("12. Add new record to data dictionary")
         print("13. Edit existing record in data dictionary")
         print("14. Delete existing record in data dictionary")
+        print("15. Sort print multiple columns")
         print("Program by Eric Salkovic | 040861953")
         # menu options for the user to choose from and execute
 
@@ -257,7 +258,7 @@ class MenuFunctions:
                       f"{row['STATUS']}, SYMBOL: {row['SYMBOL']}, TERMINATED: {row['TERMINATED']}, DECIMALS: {row['DECIMALS']}")
                 # incrementing the count by 1
                 count += 1
-            # printing nubmer of rows
+            # printing number of rows
             print(count - 1, " rows")
 
     def new_dict_record(self):
@@ -409,3 +410,19 @@ class MenuFunctions:
             dict_writer.writeheader()
             # rewriting the dictionary back to .csv file
             dict_writer.writerows(dict_list)
+
+    def sort_multiple(self): # Eric Salkovic
+        """function to sort and print a single or multiple rows based on user input"""
+        # making a dataframe from the csv file
+        df = pd.read_csv("dataset.csv")
+        # printing column names for user to select from
+        print(df.columns)
+        # getting single or multiple column names to print out
+        selected_col = input("Enter column name(s) you want to print (separated by a comma and no spaces)")
+        # in the case where user enters multiple, this will split the columns
+        selected_col = selected_col.split(",")
+        # creating secondary dataframe of selected row(s)
+        selected_df = df[selected_col]
+        # printing the secondary dataframe
+        print(selected_df.head())
+
